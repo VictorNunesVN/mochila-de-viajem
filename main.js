@@ -1,6 +1,15 @@
 const formulario = document.getElementById('novoItem')
 const lista = document.getElementById("lista")
-const item = []
+
+/* O JSON.parse(jsonString) serve para transformar uma string JSON em um objeto javaScript, tanto que o metodo push() de lista não estava funcionando.  
+*/
+const itens =JSON.parse(localStorage.getItem('itens') )|| []
+
+console.log(itens)
+
+itens.forEach( (elemento)=>{
+    console.log(elemento.nome, elemento.quantidade)
+})
 
 formulario.addEventListener("submit", (evento)=>{
     evento.preventDefault()
@@ -39,8 +48,8 @@ function criaElemento(nome, quantidade){
     }
     // criando a lista ITEM e colocando cada item atual lá, quando for passar para o localStorage, passa-se a lista
     // para um item novo não subscreva o item antigo. Criando assim, uma lista com os itens salvos no localStorage.
-    item.push(itemAtual)
-    localStorage.setItem('item',JSON.stringify(item))
+    itens.push(itemAtual)
+    localStorage.setItem('itens',JSON.stringify(itens))
 
     /*Armazena os valores de nome e quantidade no localStorage, mas os valores são substituidos a cana nova inserção. obs: o localStorage só lê obgetos do tipo json,só lê string
     localStorage.setItem('nome',nome) 
