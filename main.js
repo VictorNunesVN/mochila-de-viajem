@@ -20,11 +20,16 @@ formulario.addEventListener("submit", (evento)=>{
     const nome = evento.target.elements['nome']
     const quantidade = evento.target.elements['quantidade']
 
+    // verifica se o elemento que foi digitado existe na lista de elementos 
+    const existe = itens.find(elemento => elemento.nome === nome.value)
+    
     const itemAtual = {
         //colocando o código aqui, é necessário colocar .value 
         'nome': nome.value,
         'quantidade' : quantidade.value
     }
+
+
 
     // criaElemento(nome.value, quantidade.value)
     // agora apenas é necessário passar o itemAtual pois ele já contém os dois valores necessários. 
