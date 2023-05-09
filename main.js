@@ -4,7 +4,16 @@ const lista = document.getElementById("lista")
 formulario.addEventListener("submit", (evento)=>{
     evento.preventDefault()
     /*Toda vez que o formulário for submetido, a função criaElemento() será acionada.*/
-    criaElemento(evento.target.elements['nome'].value, evento.target.elements['quantidade'].value)
+
+    const nome = evento.target.elements['nome']
+    const quantidade = evento.target.elements['quantidade']
+
+    criaElemento(nome.value, quantidade.value)
+
+    nome.value =''
+    quantidade.value =''
+    nome.focus()
+    
 })  
 
 function criaElemento(nome, quantidade){
@@ -19,4 +28,8 @@ function criaElemento(nome, quantidade){
     novoItem.innerHTML += nome
     
     lista.appendChild(novoItem)
+
+    // Armazena os valores de nome e quantidade no localStorage, mas os valores são substituidos a cana nova inserção. 
+    localStorage.setItem('nome',nome) 
+    localStorage.setItem('quantidade',quantidade)
 }
