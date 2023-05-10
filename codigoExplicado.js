@@ -3,6 +3,7 @@ const lista = document.getElementById("lista")
 
 /* O JSON.parse(jsonString) serve para transformar uma string JSON em um objeto javaScript, tanto que o metodo push() de lista não estava funcionando.  
 */
+// o array itens é o local que será guardado os dados que forem digitados no formulário. 
 const itens =JSON.parse(localStorage.getItem('itens') )|| []
 
 console.log(itens)
@@ -22,13 +23,22 @@ formulario.addEventListener("submit", (evento)=>{
 
     // verifica se o elemento que foi digitado existe na lista de elementos 
     const existe = itens.find(elemento => elemento.nome === nome.value)
-    
+
     const itemAtual = {
         //colocando o código aqui, é necessário colocar .value 
         'nome': nome.value,
         'quantidade' : quantidade.value
     }
-
+    // verificando de o item existe
+    if (existe){
+        itemAtual.id = existe.id
+    }else{
+        // se o id não existe, o id atual será o número do tamanho do array
+        //se tiver um item , o id será 1, dois itens id 2  ...
+        itemAtual.id = itens.length
+        criaElemento(itemAtual)
+        itens.push(itemAtual)
+    }
 
 
     // criaElemento(nome.value, quantidade.value)
@@ -60,6 +70,8 @@ function criaElemento(item){
 
     const numeroItem = document.createElement("strong")
     numeroItem.innerHTML = item.quantidade;
+    //
+    numeroItem.dataset.id = item.id
     
     novoItem.appendChild(numeroItem)
     novoItem.innerHTML += item.nome
